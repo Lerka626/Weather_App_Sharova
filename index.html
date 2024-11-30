@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>WeatherApp</title>
+        <link rel="stylesheet" href="./main.css">
+        <link rel="icon" href="img/favicon.png" type="image/x-icon" alt="image-icon">
+        <script src="https://mapgl.2gis.com/api/js/v1" async defer></script>
+    </head>
+    <body class="body">
+        <div class="container">
+            <div class="container-1">
+                <h1 class="title">Прогноз погоды</h1>
+                <form class="form" id="form">
+                    <label for="latitude">Широта</label><input class="input" id="latitude" type="text">
+                    <label for="longitude">Долгота</label><input class="input" id='longitude' type="text">
+                    <div>
+                        <button type="button" class="button" id="show-weather">Показать погоду</button>
+                    </div>
+                    <br>Местоположение:
+                    <p id="name_city">_________</p>
+                    <div class="container-loc" id="container-loc">
+                        <article class="card-0" id="location">
+                            Карта локации
+                        </article>
+                    </div>
+                    <div class="list-right-or-left">
+                        <button type="button" class="button-list">
+                            <img class="left" aria-hidden="true" id="swipe_left_buttons" src="./img/left.png" alt="Left Swipe">
+                        </button>
+                        <button type="button" class="button-list">
+                            <img class="right" aria-hidden="true" id="swipe_right_buttons" src="./img/right.png" alt="Right Swipe">
+                        </button>
+                    </div>
+                    <div class="delete-all">
+                        <button type="button" class="delete_all" id="delete_data">Сбросить</button>
+                    </div>
+                </form>
+            </div>
+            <div class="container-2">
+                <article class="card-1" id="weather_card">
+                    <div class="card1">
+                        <div class="card1-day" id="day_name"><u>Сегодня</u></div>
+                        <div class="card1-info">
+                            <table class="weather-table">
+                                <thead class="weather-table-head">
+                                    
+                                </thead>
+                            </table>
+                            <tbody class="weather-table__body">
+                                <tr class="weather-body-table__row">
+                                    <td class="weather-table__body__row-col1">
+                                        <div class="col1-temperature-line">
+                                            <div class="col1-temp">
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_morning_start">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_morning_end">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="day-part">
+                                            Утро
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col2">
+                                        <div class="img__line">
+                                            <img class="icon" aria-hidden="true" id="weather_icon_m" src="./img/empty.png" alt="weather-icon-m">
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col3">
+                                        <div class="characteristic" id="weather_condition_m">
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="weather-body-table__row">
+                                    <td class="weather-table__body__row-col1">
+                                        <div class="col1-temperature-line">
+                                            <div class="col1-temp">
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_afternoon_start">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value"  id="temp_afternoon_end">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="day-part">
+                                            День
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col2">
+                                        <div class="img__line">
+                                            <img class="icon" aria-hidden="true" id="weather_icon_a" src="./img/empty.png" alt="weather-icon-a">
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col3">
+                                        <div class="characteristic" id="weather_condition_a">
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="weather-body-table-row">
+                                    <td class="weather-table__body__row-col1">
+                                        <div class="col1-temperature-line">
+                                            <div class="col1-temp">
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_evening_start">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_evening_end">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="day-part">
+                                            Вечер
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col2">
+                                        <div class="img__line">
+                                            <img class="icon" aria-hidden="true" id="weather_icon_e" src="./img/empty.png" alt="weather-icon-e">
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col3">
+                                        <div class="characteristic" id="weather_condition_e">
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="weather-body-table-row">
+                                    <td class="weather-table__body__row-col1">
+                                        <div class="col1-temperature-line">
+                                            <div class="col1-temp">
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_night_start">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                                <div class="temp" role="text">
+                                                    <span class="temp_value" id="temp_night_end">
+                                                        ...
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="day-part">
+                                            Ночь
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col2">
+                                        <div class="img__line">
+                                            <img class="icon" aria-hidden="true" id="weather_icon_n" src="./img/empty.png" alt="weather-icon-n">
+                                        </div>
+                                    </td>
+                                    <td class="weather-table__body__row-col3">
+                                        <div class="characteristic" id="weather_condition_n">
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container-3">
+                <article class="card-2">
+                    <div class="card2">
+                        <div class="card2-wind">
+                            <img class="wind-icon" aria-hidden="true" src="./img/wind_icon.png" alt="Wind Icon">
+                            <u><span class="wind-text">Ветер</span>
+                            <span class="wind-unit-measure">м/с</span></u>
+                            <div class="card2-info">
+                                <table class="wind-table">
+                                    <thead class="wind-table-head">
+                                        
+                                    </thead>
+                                </table>
+                                <tbody class="wind-table__body">
+                                    <tr class="wind-body-table__row">
+                                        <td class="wind-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="wind" role="text">
+                                                        <span class="wind-value" id="wind_value_m">
+                                                            ...
+                                                        </span>
+                                                        <div class="wind-direction" id="wind_direction_m">
+                                                            ...
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part2">
+                                                Утро
+                                            </div>
+                                        </td>
+                                        <td class="wind-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="wind" role="text">
+                                                        <span class="wind-value" id="wind_value_a">
+                                                            ...
+                                                        </span>
+                                                        <div class="wind-direction" id="wind_direction_a">
+                                                            ...
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part2">
+                                                День
+                                            </div>
+                                        </td>
+                                        <td class="wind-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="wind" role="text">
+                                                        <span class="wind-value" id="wind_value_e">
+                                                            ...
+                                                        </span>
+                                                        <div class="wind-direction" id="wind_direction_e">
+                                                            ...
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part2">
+                                                Вечер
+                                            </div>
+                                        </td>
+                                        <td class="wind-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="wind" role="text">
+                                                        <span class="wind-value" id="wind_value_n">
+                                                            ...
+                                                        </span>
+                                                        <div class="wind-direction" id="wind_direction_n">
+                                                            ...
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part2">
+                                                Ночь
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container-4">
+                <article class="card-3">
+                    <div class="card3">
+                        <div class="card3-air-humidity">
+                            <img class="air-humidity-icon" aria-hidden="true" src="./img/humidity_icon.png" alt="Humidity Icon">
+                            <u><span class="air-humidity-text">Влажность</span>
+                                <span class="air-humidity-unit-measure">%</span></u>
+                            <div class="card3-info">
+                                <table class="air-humidity-table">
+                                    <thead class="air-humidity-table-head">
+                                         
+                                    </thead>
+                                </table>
+                                <tbody class="air-humidity-table__body">
+                                    <tr class="air-humidity-body-table__row">
+                                        <td class="air-humidity-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="air-humidity" role="text">
+                                                        <span class="air-humidity-value" id="value_humidity_m">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part3">
+                                                Утро
+                                            </div>
+                                        </td>
+                                        <td class="air-humidity-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="air-humidity" role="text">
+                                                        <span class="air-humidity-value" id="value_humidity_a">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part3">
+                                                День
+                                            </div>
+                                        </td>
+                                        <td class="air-humidity-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="air-humidity" role="text">
+                                                        <span class="air-humidity-value" id="value_humidity_e">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part3">
+                                                Вечер
+                                            </div>
+                                        </td>
+                                        <td class="air-humidity-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="air-humidity" role="text">
+                                                        <span class="air-humidity-value" id="value_humidity_n">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part3">
+                                                Ночь
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container-5">
+                <article class="card-4">
+                    <div class="card4">
+                        <div class="card4-pressure">
+                            <img class="pressure-icon" aria-hidden="true" src="./img/pressure_icon.png" alt="Pressure Icon">
+                            <u><span class="pressure-text">Давление</span>
+                                <span class="pressure-unit-measure">мм рт.ст.</span></u>
+                            <div class="card4-info">
+                                <table class="pressure-table">
+                                    <thead class="pressure-table-head">
+                                        <tr></tr>
+                                    </thead>
+                                </table>
+                                <tbody class="pressure-table__body">
+                                    <tr class="pressure-body-table__row">
+                                        <td class="pressure-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="pressure" role="text">
+                                                        <span class="pressure-value" id="value_pressure_m">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part4">
+                                                Утро
+                                            </div>
+                                        </td>
+                                        <td class="pressure-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="pressure" role="text">
+                                                        <span class="pressure-value" id="value_pressure_a">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part4">
+                                                День
+                                            </div>
+                                        </td>
+                                        <td class="pressure-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="pressure" role="text">
+                                                        <span class="pressure-value" id="value_pressure_e">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part4">
+                                                Вечер
+                                            </div>
+                                        </td>
+                                        <td class="pressure-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="pressure" role="text">
+                                                        <span class="pressure-value" id="value_pressure_n">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part4">
+                                                Ночь
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="container-6">
+                <article class="card-5">
+                    <div class="card5">
+                        <div class="card5-feels-like">
+                            <img class="feels-like-icon" aria-hidden="true" src="./img/feels_like_icon.png" alt="FeelsLike Icon">
+                            <u><span class="feels-like-text">Ощущается как</span>
+                                <span class="feels-like-unit-measure">°C</span></u>
+                            <div class="card5-info">
+                                <table class="feels-like-table">
+                                    <thead class="feels-like-table-head">
+                                        <tr></tr>
+                                    </thead>
+                                </table>
+                                <tbody class="feels-like-table__body">
+                                    <tr class="feels-like-body-table__row">
+                                        <td class="feels-like-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="feels-like" role="text">
+                                                        <span class="feels-like-value" id="feels_like_value_m">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part5">
+                                                Утро
+                                            </div>
+                                        </td>
+                                        <td class="feels-like-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="feels-like" role="text">
+                                                        <span class="feels-like-value" id="feels_like_value_a">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part5">
+                                                День
+                                            </div>
+                                        </td>
+                                        <td class="feels-like-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="feels-like" role="text">
+                                                        <span class="feels-like-value" id="feels_like_value_e">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part5">
+                                                Вечер
+                                            </div>
+                                        </td>
+                                        <td class="feels-like-table__body__row-col1">
+                                            <div class="col1-value-line">
+                                                <div class="col1-value">
+                                                    <div class="feels-like" role="text">
+                                                        <span class="feels-like-value" id="feels_like_value_n">
+                                                            ...
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="day-part5">
+                                                Ночь
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <script src="./main.js" defer></script>
+    </body>
+</html>
